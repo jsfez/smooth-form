@@ -1,43 +1,30 @@
 import React from "react"
-import { Checkbox, FormCheck as SuiFormCheck, Box } from "@smooth-ui/core-sc"
+import { Checkbox, FormCheck as SuiFormCheck } from "@smooth-ui/core-sc"
 import { FormCheckLabel } from "@smooth-ui/core-sc"
 import { useField } from "react-final-form"
-
-function CheckLabel({ children, required, invalid, ...props }) {
-  return (
-    <FormCheckLabel color={invalid ? "red" : "black"} {...props}>
-      {children}
-      {required && (
-        <Box forwardedAs="span" color="red">
-          *
-        </Box>
-      )}
-    </FormCheckLabel>
-  )
-}
+import { mustBeFilled, composeValidators } from "../../utils/validators"
 
 export default function FormCheck({
   label,
   name,
   required,
-  hint,
   value,
   radioState,
-
   input: ControledInput = Checkbox,
   id: idProp,
   ...props
 }) {
   const id = idProp || name
   const type = props.type || "checkbox"
+
+  const validators = []
+  if (required) validators.push(mustBeFilled)
+
   const field = useField(name, {
     type: type,
-    validate: required,
+    validate: validators.length ? composeValidators(...validators) : undefined,
     ...(value && { value })
   })
-
-  const error = field.meta.touched ? field.meta.error : null
-  const isInvalid = field.meta.touched ? field.meta.invalid : null
 
   return (
     <>
@@ -49,14 +36,7 @@ export default function FormCheck({
           {...props}
           {...field.input}
         />
-        {label && (
-          <CheckLabel htmlFor={id} invalid={isInvalid} required={required}>
-            {label}
-          </CheckLabel>
-        )}
-
-        {hint && <Box>{hint}</Box>}
-        {error && <Box color="red">{error}</Box>}
+        {label && <FormCheckLabel htmlFor={id}>{label}</FormCheckLabel>}
       </SuiFormCheck>
     </>
   )

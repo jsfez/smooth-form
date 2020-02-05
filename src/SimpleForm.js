@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { Radio, Switch, useRadioState } from "@smooth-ui/core-sc"
+import { Radio, Switch, useRadioState, Box } from "@smooth-ui/core-sc"
 import Form from "./components/form/Form"
 import InputField from "./components/form/InputField"
 import FormCheck from "./components/form/FormCheck"
@@ -62,25 +62,30 @@ function SimpleForm({
               label="Hero"
               id="hero"
               horizontal
+              required
               col={1 / 3}
               radioState={radioState}
             >
-              <FormCheck
-                name="hero"
-                label="Spiderman"
-                value="spiderman"
-                type="radio"
-                input={Radio}
-                radioState={radioState}
-              />
-              <FormCheck
-                name="hero"
-                label="Batman"
-                value="batman"
-                type="radio"
-                input={Radio}
-                radioState={radioState}
-              />
+              <Box row justifyContent="space-between">
+                <FormCheck
+                  name="hero"
+                  label="Spiderman"
+                  value="spiderman"
+                  required
+                  type="radio"
+                  input={Radio}
+                  radioState={radioState}
+                />
+                <FormCheck
+                  name="hero"
+                  label="Batman"
+                  value="batman"
+                  required
+                  type="radio"
+                  input={Radio}
+                  radioState={radioState}
+                />
+              </Box>
             </CheckboxGroup>
 
             <CheckboxGroup label="Theme" id="theme" horizontal col={1 / 3}>
