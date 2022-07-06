@@ -1,6 +1,6 @@
 # About
 
-This project is a React Form bootstrapped with :
+This project is a React Form bootstrapped with 
 
 - [Create React App](https://github.com/facebook/create-react-app) : React app boilerplate
 - [Smooth UI](https://www.smooth-code.com/open-source/smooth-ui/) : Ready-to-use components and theming
